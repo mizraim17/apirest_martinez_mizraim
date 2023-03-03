@@ -1,0 +1,17 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <a mat-button routerLink="home" class="tit-toolbar">Control Escolar</a>
+  <span class="example-spacer"></span>
+  <button mat-button (click)="irInicio()">
+    Inicio
+  </button>
+  <a mat-button routerLink="cursos/table">
+    Tabla
+  </a>
+  <a mat-button routerLink="cursos/list">
+    Lista
+  </a>
+
+</mat-toolbar>
