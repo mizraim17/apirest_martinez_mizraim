@@ -8,7 +8,7 @@ import { TablaComponent } from './components/tabla/tabla.component';
 
 const routes: Routes = [
   {
-    path: 'cursos',
+    path: '',
     children: [
       { path: 'list', component: ListaComponent },
       { path: 'edit', component: EditarEstudianteComponent },

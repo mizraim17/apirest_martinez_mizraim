@@ -19,7 +19,6 @@ import { CoreModule } from './core/core.module';
 @NgModule({
   declarations: [
     AppComponent,
-
     NavbarComponent,
     ContentComponent,
     FontSizeDirective,
@@ -27,11 +26,11 @@ import { CoreModule } from './core/core.module';
     PaginaErrorComponent,
   ],
   imports: [
+    AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
-    // CursosModule,
+    SharedModule,
     CoreModule,
-    AppRoutingModule,
   ],
   providers: [CursosService],
   bootstrap: [AppComponent],
