@@ -12,7 +12,6 @@ import { FontSizeDirective } from './directives/font-size.directive';
 
 import { HomeComponent } from './core/components/home/home.component';
 import { PaginaErrorComponent } from './core/components/pagina-error/pagina-error.component';
-import { CursosService } from './cursos/services/cursos.service';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 
@@ -32,7 +31,7 @@ import { CoreModule } from './core/core.module';
     SharedModule,
     CoreModule,
   ],
-  providers: [CursosService],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

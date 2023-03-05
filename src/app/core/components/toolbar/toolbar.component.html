@@ -1,17 +1,33 @@
-<mat-toolbar color="primary">
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-    <mat-icon>menu</mat-icon>
-  </button>
-  <a mat-button routerLink="home" class="tit-toolbar">Control Escolar</a>
-  <span class="example-spacer"></span>
-  <button mat-button (click)="irInicio()">
-    Inicio
-  </button>
-  <a mat-button routerLink="cursos/table">
-    Tabla
-  </a>
-  <a mat-button routerLink="cursos/list">
-    Lista
-  </a>
+<ng-container *ngIf="sesion$|async as sesion">
 
-</mat-toolbar>
+
+
+  <mat-toolbar color="primary" *ngIf="sesion.sesionActiva">
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <a mat-button routerLink="home" class="tit-toolbar">Control Escolar</a>
+    <span class="example-spacer"></span>
+    <button mat-button (click)="irInicio()">
+      Inicio
+    </button>
+    <a mat-button routerLink="cursos/table">
+      Tabla
+    </a>
+    <a mat-button routerLink="cursos/list">
+      Lista
+    </a>
+
+    <a mat-button routerLink="cursos/edit" *ngIf="sesion.usuarioActivo?.esAdmin">
+      es admin
+    </a>
+
+    <a mat-button (click)="logOut()">
+      <mat-icon>logout</mat-icon>
+    </a>
+
+  </mat-toolbar>
+
+</ng-container>
+
+<router-outlet></router-outlet>
