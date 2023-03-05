@@ -19,7 +19,9 @@
     </a>
 
     <a mat-button routerLink="cursos/edit" *ngIf="sesion.usuarioActivo?.esAdmin">
-      es admin
+      <mat-icon>
+        supervisor_account
+      </mat-icon>
     </a>
 
     <a mat-button (click)="logOut()">

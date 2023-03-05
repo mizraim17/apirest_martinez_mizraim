@@ -27,6 +27,7 @@ export class ToolbarComponent implements OnInit {
   logOut() {
     let sesionLogout: Sesion = {
       sesionActiva: false,
+      usuarioActivo: undefined,
     };
 
     this.sesion.logout(sesionLogout);
