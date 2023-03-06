@@ -55,7 +55,11 @@ export class AgregarEstudianteComponent {
 
   addEstudiante(form: any) {
     console.log('form', form);
-    this.estudianteService.agregarEstudiante(form.value);
-    this.router.navigate(['cursos/list']);
+    this.estudianteService
+      .agregarEstudiante(form.value)
+      .subscribe((estudiante: Estudiante) => {
+        alert(`si agrego ${estudiante.nombre}`);
+        this.router.navigate(['cursos/list']);
+      });
   }
 }

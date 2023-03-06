@@ -36,12 +36,30 @@ export class ListaComponent {
   }
 
   editarDatos(estudiante: Estudiante) {
-    const dialogRef = this.dialog.open(EditarEstudianteComponent, {
-      data: estudiante,
-    });
+    this.dialog
+      .open(EditarEstudianteComponent, {
+        data: estudiante,
+      })
+      .afterClosed()
+      .subscribe((estudiante: Estudiante) => {
+        console.log('estudante lista', estudiante.nombre);
+
+        alert(`editado ${estudiante.nombre}`);
+        this.estudiantes$ =
+          this.estudianteService.obtenerEstudiantesObservable();
+      });
   }
 
-  eliminarDatos(i: number) {
-    this.estudianteService.eliminarEstudiante(i);
+  eliminarDatos(i: string) {
+    console.log('id', i);
+
+    this.estudianteService
+      .eliminarEstudiante(i)
+      .subscribe((estudiante: Estudiante) => {
+        alert(`${estudiante.nombre} eliminado`);
+
+        this.estudiantes$ =
+          this.estudianteService.obtenerEstudiantesObservable();
+      });
   }
 }
