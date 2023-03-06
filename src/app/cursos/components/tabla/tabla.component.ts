@@ -12,7 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { EditarEstudianteComponent } from '../editar-estudiante/editar-estudiante.component';
 
 import { AgregarEstudianteComponent } from '../agregar-estudiante/agregar-estudiante.component';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { CursosService } from '../../services/cursos.service';
 
 @Component({
@@ -23,6 +23,8 @@ import { CursosService } from '../../services/cursos.service';
 export class TablaComponent implements OnInit, OnDestroy {
   dataSource!: MatTableDataSource<Estudiante>;
   suscripcion!: Subscription;
+
+  estudiantes$!: Observable<Estudiante[]>;
 
   columnas: string[] = [
     'Nombre',
@@ -57,18 +59,44 @@ export class TablaComponent implements OnInit, OnDestroy {
   }
 
   editarDatos(estudiante: Estudiante) {
-    const dialogRef = this.dialog.open(EditarEstudianteComponent, {
-      data: estudiante,
-    });
+    this.dialog
+      .open(EditarEstudianteComponent, {
+        data: estudiante,
+      })
+      .afterClosed()
+      .subscribe((estudiante: Estudiante) => {
+        console.log('estudante lista', estudiante.nombre);
+
+        alert(`editado ${estudiante.nombre}`);
+        this.estudiantes$ =
+          this.estudianteService.obtenerEstudiantesObservable();
+
+        this.suscripcion = this.estudianteService
+          .obtenerEstudiantesObservable()
+          .subscribe((estudiantes: Estudiante[]) => {
+            this.dataSource.data = estudiantes;
+          });
+      });
   }
 
   addEstudiante() {
     const dialogRef = this.dialog.open(AgregarEstudianteComponent, {});
   }
 
-  eliminarDatos(i: number) {
-    let arr_copy = this.dataSource.data;
-    arr_copy.splice(i, 1);
-    this.dataSource.data = arr_copy;
+  eliminarDatos(i: string) {
+    this.estudianteService
+      .eliminarEstudiante(i)
+      .subscribe((estudiante: Estudiante) => {
+        alert(`${estudiante.nombre} eliminado`);
+
+        this.estudiantes$ =
+          this.estudianteService.obtenerEstudiantesObservable();
+
+        this.suscripcion = this.estudianteService
+          .obtenerEstudiantesObservable()
+          .subscribe((estudiantes: Estudiante[]) => {
+            this.dataSource.data = estudiantes;
+          });
+      });
   }
 }
